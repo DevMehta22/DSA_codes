@@ -62,11 +62,7 @@ void binarySearch(int arr[], int size, int num)
         {
             high = mid;
         }
-    
-    }
-    
-    
-    
+    }  
 }
 
 int main()
