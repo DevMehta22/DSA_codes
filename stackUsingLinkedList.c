@@ -52,6 +52,22 @@ int pop(struct Node **ptr)
     return x;
 }
 
+int peek(struct Node *ptr, int index)
+{
+    struct Node *p = ptr;
+    for (int i = 0; i < index - 1 && ptr != NULL; i++)
+    {
+        p = p->next;
+    }
+    if (p == NULL)
+    {
+        printf("INvalid Index\n");
+        return -1;
+    }
+    printf("The element at position %d is %d\n", index, p->data);
+    return 0;
+}
+
 int display(struct Node *ptr)
 {
     printf("The stack elements are:\n");
@@ -64,14 +80,41 @@ int display(struct Node *ptr)
     return 0;
 }
 
+int stackTop(struct Node *ptr)
+{
+    if (ptr == NULL)
+    {
+        printf("Empty Stack\n");
+        return -1;
+    }
+    printf("The topmost element of stack is %d\n", ptr->data);
+    return 0;
+}
+
+int stackBottom(struct Node *ptr)
+{
+    struct Node *p = ptr;
+    if (ptr == NULL)
+    {
+        printf("Empty Stack\n");
+        return -1;
+    }
+    while (p->next != NULL)
+    {
+        p = p->next;
+    }
+    printf("The bottommost element of stack is %d\n", p->data);
+    return 0;
+}
+
 int main()
 {
     struct Node *top = NULL;
     int ch = 1;
-    int num, x;
+    int num, x, pos;
     while (ch)
     {
-        printf("Enter your choice\n1.push\n2.pop\n3.display\n4.exit\n");
+        printf("Enter your choice\n1.push\n2.pop\n3.peek\n4.display\n5.stackTop\n6.stackBottom\n7.exit\n");
         scanf("%d", &num);
         switch (num)
         {
@@ -84,9 +127,20 @@ int main()
             printf("The popped element is: %d\n", pop(&top));
             break;
         case 3:
-            display(top);
+            printf("Enter the position of element:");
+            scanf("%d", &pos);
+            peek(top, pos);
             break;
         case 4:
+            display(top);
+            break;
+        case 5:
+            stackTop(top);
+            break;
+        case 6:
+            stackBottom(top);
+            break;
+        case 7:
             ch = 0;
             printf("Program successfully closed!");
             break;
@@ -95,6 +149,5 @@ int main()
             break;
         }
     }
-
     return 0;
 }
